@@ -1,0 +1,63 @@
+[2019-02-11 22:01:55.606] [0x1144335c0] [DEBUG] test log
+[2019-02-11 22:01:55.607] [0x1144335c0] [DEBUG] Hello there!
+[2019-02-11 22:01:55.607] [0x700000ff0000] [DEBUG] Hello there!
+[2019-02-11 22:01:55.607] [0x700000c5b000] [DEBUG] Hello from thread #3 Iteration #1
+[2019-02-11 22:01:55.607] [0x700000cde000] [DEBUG] Hello there!
+[2019-02-11 22:01:55.607] [0x7000010f6000] [DEBUG] Hello there!
+[2019-02-11 22:01:55.607] [0x700000eea000] [DEBUG] Hello there!
+[2019-02-11 22:01:55.607] [0x700000ff0000] [ERROR] Interesting log11
+[2019-02-11 22:01:55.607] [0x700000c5b000] [DEBUG] Hello from thread #4 Iteration #2
+[2019-02-11 22:01:55.607] [0x700000de4000] [DEBUG] Hello there!
+[2019-02-11 22:01:55.607] [0x700000de4000] [ERROR] Interesting log11
+[2019-02-11 22:01:55.607] [0x7000010f6000] [ERROR] Interesting log11
+[2019-02-11 22:01:55.607] [0x1144335c0] [ERROR] Interesting log11
+[2019-02-11 22:01:55.608] [0x700000f6d000] [DEBUG] Hello from thread #7 Iteration #1
+[2019-02-11 22:01:55.608] [0x700000eea000] [ERROR] Interesting log11
+[2019-02-11 22:01:55.608] [0x700000c5b000] [DEBUG] Hello from thread #6 Iteration #3
+[2019-02-11 22:01:55.608] [0x700000f6d000] [DEBUG] Hello from thread #8 Iteration #2
+[2019-02-11 22:01:55.608] [0x700000c5b000] [DEBUG] Hello from thread #9 Iteration #4
+[2019-02-11 22:01:55.608] [0x700000cde000] [ERROR] Interesting log11
+[2019-02-11 22:01:55.608] [0x700000e67000] [DEBUG] Hello from thread #2 Iteration #1
+[2019-02-11 22:01:55.608] [0x700000d61000] [DEBUG] Hello from thread #1 Iteration #1
+[2019-02-11 22:01:55.608] [0x700001073000] [DEBUG] Hello from thread #5 Iteration #1
+[2019-02-11 22:01:55.608] [0x700000e67000] [DEBUG] Hello from thread #11 Iteration #2
+[2019-02-11 22:01:55.608] [0x700000f6d000] [DEBUG] Hello from thread #13 Iteration #3
+[2019-02-11 22:01:55.608] [0x700000c5b000] [DEBUG] Hello from thread #10 Iteration #5
+[2019-02-11 22:01:55.609] [0x700000f6d000] [DEBUG] Hello from thread #15 Iteration #4
+[2019-02-11 22:01:55.609] [0x700000d61000] [DEBUG] Hello from thread #12 Iteration #2
+[2019-02-11 22:01:55.609] [0x700000c5b000] [DEBUG] Hello from thread #16 Iteration #6
+[2019-02-11 22:01:55.609] [0x700000f6d000] [DEBUG] Hello from thread #17 Iteration #5
+[2019-02-11 22:01:55.609] [0x700000c5b000] [DEBUG] Hello from thread #18 Iteration #7
+[2019-02-11 22:01:55.609] [0x700000e67000] [DEBUG] Hello from thread #19 Iteration #3
+[2019-02-11 22:01:55.609] [0x700001073000] [DEBUG] Hello from thread #14 Iteration #2
+[2019-02-11 22:01:55.609] [0x700000c5b000] [DEBUG] Hello from thread #24 Iteration #8
+[2019-02-11 22:01:55.609] [0x700000f6d000] [DEBUG] Hello from thread #20 Iteration #6
+[2019-02-11 22:01:55.609] [0x700000c5b000] [DEBUG] Hello from thread #25 Iteration #9
+[2019-02-11 22:01:55.609] [0x700001073000] [DEBUG] Hello from thread #21 Iteration #3
+[2019-02-11 22:01:55.609] [0x700001073000] [DEBUG] Hello from thread #27 Iteration #4
+[2019-02-11 22:01:55.610] [0x700000e67000] [DEBUG] Hello from thread #23 Iteration #4
+[2019-02-11 22:01:55.610] [0x700000d61000] [DEBUG] Hello from thread #22 Iteration #3
+[2019-02-11 22:01:55.610] [0x700000d61000] [DEBUG] Hello from thread #30 Iteration #4
+[2019-02-11 22:01:55.610] [0x700000f6d000] [DEBUG] Hello from thread #26 Iteration #7
+[2019-02-11 22:01:55.610] [0x700000f6d000] [DEBUG] Hello from thread #33 Iteration #8
+[2019-02-11 22:01:55.610] [0x700001073000] [DEBUG] Hello from thread #28 Iteration #5
+[2019-02-11 22:01:55.610] [0x700000c5b000] [DEBUG] Hello from thread #29 Iteration #10
+[2019-02-11 22:01:55.610] [0x700001073000] [DEBUG] Hello from thread #35 Iteration #6
+[2019-02-11 22:01:55.610] [0x700000e67000] [DEBUG] Hello from thread #32 Iteration #5
+[2019-02-11 22:01:55.610] [0x700000e67000] [DEBUG] Hello from thread #37 Iteration #6
+[2019-02-11 22:01:55.610] [0x700000e67000] [DEBUG] Hello from thread #38 Iteration #7
+[2019-02-11 22:01:55.611] [0x700000f6d000] [DEBUG] Hello from thread #34 Iteration #9
+[2019-02-11 22:01:55.611] [0x700000d61000] [DEBUG] Hello from thread #31 Iteration #5
+[2019-02-11 22:01:55.611] [0x700000e67000] [DEBUG] Hello from thread #39 Iteration #8
+[2019-02-11 22:01:55.611] [0x700000f6d000] [DEBUG] Hello from thread #40 Iteration #10
+[2019-02-11 22:01:55.611] [0x700001073000] [DEBUG] Hello from thread #36 Iteration #7
+[2019-02-11 22:01:55.611] [0x700001073000] [DEBUG] Hello from thread #43 Iteration #8
+[2019-02-11 22:01:55.611] [0x700000e67000] [DEBUG] Hello from thread #42 Iteration #9
+[2019-02-11 22:01:55.611] [0x700000d61000] [DEBUG] Hello from thread #41 Iteration #6
+[2019-02-11 22:01:55.611] [0x700001073000] [DEBUG] Hello from thread #44 Iteration #9
+[2019-02-11 22:01:55.611] [0x700000d61000] [DEBUG] Hello from thread #45 Iteration #7
+[2019-02-11 22:01:55.611] [0x700000e67000] [DEBUG] Hello from thread #46 Iteration #10
+[2019-02-11 22:01:55.611] [0x700000d61000] [DEBUG] Hello from thread #47 Iteration #8
+[2019-02-11 22:01:55.611] [0x700001073000] [DEBUG] Hello from thread #48 Iteration #10
+[2019-02-11 22:01:55.611] [0x700000d61000] [DEBUG] Hello from thread #49 Iteration #9
+[2019-02-11 22:01:55.612] [0x700000d61000] [DEBUG] Hello from thread #50 Iteration #10
