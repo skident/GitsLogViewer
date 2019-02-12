@@ -29,4 +29,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    LogParser.h
+    LogParser.h \
+    LogLine.h \
+    LogModel.h

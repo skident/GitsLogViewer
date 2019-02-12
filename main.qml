@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Window 2.2
+import QtQuick.Controls 1.4
 
 Window {
     visible: true
@@ -7,9 +8,75 @@ Window {
     height: 480
     title: qsTr("Gits LogViewer")
 
-    Text {
-        anchors.centerIn: parent
-        font.pixelSize: 50
-        text: "Coming soon"
+    TableView {
+        id: logViewer
+
+        property int activeColumn: 0
+
+        anchors.fill: parent
+
+        model: LogModel
+
+
+        headerDelegate: Rectangle {
+            height: 20
+            color: styleData.column === logViewer.activeColumn
+                   ? "brown"
+                   : "grey"
+
+            Rectangle {
+                id: separator
+
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 1
+                anchors.topMargin: 1
+                width: 1
+                color: "#333"
+            }
+
+            Text {
+                text: styleData.value
+                color: "#CFF"
+                width: parent.width
+                height: parent.height
+                font.pointSize: 18
+                minimumPointSize: 3
+                fontSizeMode: Text.Fit
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
+
+            Connections {
+                target: styleData
+                onPressedChanged: {
+                    if (styleData.pressed) {
+                        logViewer.activeColumn = styleData.column
+                        LogModel.orderBy(styleData.column)
+                    }
+                }
+            }
+        }
+
+        TableViewColumn {
+            role: "timestamp"
+            title: "Timestamp"
+        }
+
+        TableViewColumn {
+            role: "threadId"
+            title: "Thread ID"
+        }
+
+        TableViewColumn {
+            role: "severity"
+            title: "Severity"
+        }
+
+        TableViewColumn {
+            role: "message"
+            title: "Message"
+        }
     }
 }
