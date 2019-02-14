@@ -31,4 +31,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     LogParser.h \
     LogLine.h \
-    LogModel.h
+    LogModel.h \
+    AppController.h

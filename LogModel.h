@@ -22,8 +22,9 @@ class LogModel : public QAbstractListModel
 public:
     void reset(const QList<LogLine>& logs)
     {
+        beginResetModel();
         m_lines = logs;
-        dataChanged(createIndex(0, 0), createIndex(rowCount()-1, 0));
+        endResetModel();
     }
 
     void add(const LogLine& line)

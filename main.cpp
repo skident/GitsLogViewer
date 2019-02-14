@@ -2,9 +2,8 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
+#include "AppController.h"
 
-#include "LogParser.h"
-#include "LogModel.h"
 
 
 int main(int argc, char *argv[])
@@ -15,13 +14,11 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    LogModel model;
-    LogParser parser;
-    QList<LogLine> logs = parser.parse("/Users/skident/Documents/Projects/LiveCoding/GitsLogViewer/resources/MyLog.txt"); // TODO: remove hardcoded path
 
-    model.reset(logs);
+    AppController appController;
+    engine.rootContext()->setContextProperty("AppController", &appController);
+    engine.rootContext()->setContextProperty("LogModel", &appController.logModel());
 
-    engine.rootContext()->setContextProperty("LogModel", &model);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
