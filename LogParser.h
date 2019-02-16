@@ -12,7 +12,7 @@
 class LogParser
 {
 public:
-    static QList<LogLine> parse(const std::string& filename)
+    QList<LogLine> parse(const std::string& filename)
     {
         std::ifstream file(filename);
         if (!file.is_open())
@@ -30,27 +30,39 @@ public:
                 continue;
             }
 
-            logs << parseLine(line);
+            LogLine logLine = parseLine(line);
+            if (!logLine.m_line.empty())
+            {
+                logs << logLine;
+            }
         }
 
         return logs;
     }
 
-private:
-    static LogLine parseLine(const std::string& line)
+    void setRegex(const std::string& rawRegex)
     {
-        std::string raw_regex = R"(\[(\d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2}\.\d{3})\] \[(0x[\dabcdef]{1,})\] \[(DEBUG|ERROR|WARNING|INFO)\] (.*))";
-        std::regex re(raw_regex);
+        m_rawRegex = rawRegex;
+    }
+
+private:
+    LogLine parseLine(const std::string& line)
+    {
+        std::regex re(m_rawRegex);
         std::smatch match;
 
         if (std::regex_search(line, match, re))
         {
-            if (match.size() >= 4)
+            LogLine line;
+            for (size_t i = 1; i < match.size(); i++)
             {
-                return LogLine(match.str(1).c_str(), match.str(2).c_str(),
-                               match.str(3).c_str(), match.str(4).c_str());
+                line.m_line << match.str(i).c_str();
             }
+            return line;
         }
         return {};
     }
+
+private:
+    std::string m_rawRegex = R"(\[(\d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2}\.\d{3})\] \[(0x[\dabcdef]{1,})\] \[(DEBUG|ERROR|WARNING|INFO)\] (.*))";
 };

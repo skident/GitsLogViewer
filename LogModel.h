@@ -9,22 +9,33 @@ class LogModel : public QAbstractListModel
 {
     Q_OBJECT
 
-    QList<LogLine> m_lines;
-
-    enum LogRoles
-    {
-        TimestampRole = Qt::UserRole + 1,
-        ThreadIdRole,
-        SeverityRole,
-        MessageRole,
-    };
+    Q_PROPERTY(QStringList titles READ titles NOTIFY titlesChanged)
 
 public:
     void reset(const QList<LogLine>& logs)
     {
+        if (logs.empty())
+        {
+            return;
+        }
+
+        m_lines.clear();
+        m_rolesMap.clear();
+
+        int rolesCount = logs.at(0).m_line.size(); // count of elements in on log line
+        for (int i = 1; i <= rolesCount; i++)
+        {
+            int roleId = Qt::UserRole + i;
+            QString roleName = "Column #" + QString::number(i);
+
+            m_rolesMap.insert(roleId, roleName.toLocal8Bit());
+        }
+
         beginResetModel();
         m_lines = logs;
         endResetModel();
+
+        emit titlesChanged();
     }
 
     void add(const LogLine& line)
@@ -48,58 +59,53 @@ public:
         }
 
         const LogLine& line = m_lines[index.row()];
-        switch (role)
+        int idx = role % (Qt::UserRole+1);
+        if (idx < line.m_line.size())
         {
-        case TimestampRole:
-            return line.timestamp();
-
-        case ThreadIdRole:
-            return line.threadId();
-
-        case SeverityRole:
-            return line.severity();
-
-        case MessageRole:
-            return line.message();
-
-        default:
-            break;
+            return line.m_line[idx];
         }
 
-        return QVariant();
+        return {};
     }
 
-    Q_INVOKABLE void orderBy(int column)
+    Q_INVOKABLE void orderBy(const QString& columnName)
     {
-        Comparator::Field field = static_cast<Comparator::Field>(column);
-
-        // order by timestamp first
-        if (field != Comparator::Field::Timestamp)
+        int idx = 0;
+        for (auto it = m_rolesMap.begin(); it != m_rolesMap.end(); ++it)
         {
-            std::sort(m_lines.begin(), m_lines.end(),
-                      [](const LogLine& lhs, const LogLine& rhs){ return Comparator::compare(lhs, rhs, Comparator::Field::Timestamp); });
+            if (QString(it.value()) == columnName)
+            {
+                idx = it.key() % (Qt::UserRole + 1);
+            }
         }
-
-        // order by selected field
         std::sort(m_lines.begin(), m_lines.end(),
-                  [field](const LogLine& lhs, const LogLine& rhs){ return Comparator::compare(lhs, rhs, field); });
+                  [idx](const LogLine& lhs, const LogLine& rhs){ return lhs.m_line[idx] < rhs.m_line[idx]; });
+
         dataChanged(createIndex(0, 0), createIndex(rowCount()-1, 0));
     }
+
+    QStringList titles() const
+    {
+        QMap<int, QString> map;
+
+        for (auto it = m_rolesMap.begin(); it != m_rolesMap.end(); ++it)
+        {
+            map.insert(it.key(), QString(it.value()));
+        }
+
+        return map.values();
+    }
+
+signals:
+    void titlesChanged();
 
 protected:
     QHash<int, QByteArray> roleNames() const override
     {
-        static const QHash<int, QByteArray> roles =
-        {
-            {TimestampRole, "timestamp"},
-            {ThreadIdRole, "threadId"},
-            {SeverityRole, "severity"},
-            {MessageRole, "message"}
-        };
-
-        return roles;
+        return m_rolesMap;
     }
 
 private:
-
+    QList<LogLine> m_lines;
+    QHash<int, QByteArray> m_rolesMap;
 };

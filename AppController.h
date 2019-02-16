@@ -20,6 +20,8 @@ public:
 
     void openFile(const QString& filepath)
     {
+        m_filename = filepath;
+
         QList<LogLine> logs = parser.parse(filepath.toStdString());
         model.reset(logs);
     }
@@ -29,9 +31,15 @@ public:
         return model;
     }
 
+    Q_INVOKABLE void setRegex(const QString& regex)
+    {
+        parser.setRegex(regex.toStdString());
+        openFile(m_filename);
+    }
+
 private:
     LogModel model;
     LogParser parser;
-
+    QString m_filename;
 
 };
