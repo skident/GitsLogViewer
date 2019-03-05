@@ -3,6 +3,36 @@ import QtQuick 2.0
 import QtQuick.Controls 1.4
 
 Item {
+    property alias editMode: editableTitles.visible
+
+
+    function renewColumns() {
+        for (var i = logViewer.columnCount - 1; i >= 0; i--) {
+            logViewer.removeColumn(i);
+        }
+
+        for (var i = 0; i < LogModel.titles.length; i++) {
+            var column = logViewer.addColumn(columnComponent);
+            column.title = LogModel.titles[i];
+            column.role = LogModel.titles[i];
+        }
+    }
+
+    // apply titles changes
+    function apply() {
+        var map = {};
+        for (var i = 0; i < repeater.count; i++) {
+            map[logViewer.getColumn(i).role] = repeater.itemAt(i).text;
+        }
+        LogModel.updateTitles(map);
+    }
+
+    function refresh() {
+        for (var i = 0; i < logViewer.columnCount; i++) {
+            repeater.itemAt(i).text = logViewer.getColumn(i).title;
+        }
+    }
+
     Component {
         id: columnComponent
         TableViewColumn {
@@ -15,34 +45,29 @@ Item {
         id: logViewer
 
         property int activeColumn: 0
-        property var titles: LogModel.titles
-        property var curTitles: {
-            var t = []
-            for (var i = 0; i < columnCount; i++) {
-                t.push(getColumn(i).title);
-            }
-            return t;
-        }
-
-        onTitlesChanged: {
-            for (var i = 0; i < titles.length; i++) {
-                if (curTitles.indexOf(titles[i]) === -1) {
-                    var column = addColumn(columnComponent);
-                    column.title = titles[i];
-                    column.role = titles[i];
-                }
-            }
-
-            for (i = curTitles.length - 1; i >= 0; i--) {
-                if (titles.indexOf(curTitles[i]) === -1) {
-                    removeColumn(i);
-                }
-            }
-        }
 
         anchors.fill: parent
 
         model: LogModel
+
+        Row {
+            id: editableTitles
+
+            anchors.top: parent.top
+            visible: false
+
+            Repeater {
+                id: repeater
+
+                model: logViewer.columnCount
+                delegate: TextField {
+                    width: logViewer.getColumn(modelData).width
+                    height: logViewer.getColumn(modelData).height
+                }
+            }
+
+            z: parent.z + 1
+        }
 
 
         headerDelegate: Rectangle {
@@ -83,6 +108,20 @@ Item {
                         LogModel.orderBy(styleData.value)
                     }
                 }
+            }
+        }
+    }
+
+    Connections {
+        target: LogModel
+        onModelReloaded: {
+            renewColumns();
+        }
+
+        onTitlesChanged: {
+            for (var i = 0; i < logViewer.columnCount; i++) {
+                var column = logViewer.getColumn(i);
+                column.title = LogModel.getTitle(column.role);
             }
         }
     }

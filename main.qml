@@ -14,15 +14,13 @@ Window {
     }
 
 
-    LogView {
-        anchors.fill: parent
-    }
-
     Rectangle {
-        anchors.bottom: parent.bottom
+        id: topPanel
+
+        anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        height: 20
+        height: 40
 
         Row {
             TextField {
@@ -36,5 +34,36 @@ Window {
                 }
             }
         }
+
+
+        Button {
+            anchors.right: parent.right
+
+            text: "Change"
+            checkable: true
+
+            onCheckedChanged: {
+                if (text === "Change") {
+                    text = "Apply";
+
+                    logView.refresh();
+                    logView.editMode = true;
+
+                } else {
+                    text = "Change"
+                    logView.apply();
+                    logView.editMode = false;
+                }
+            }
+        }
+    }
+
+    LogView {
+        id: logView
+
+        anchors.top: topPanel.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
     }
 }
